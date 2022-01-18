@@ -1,0 +1,23 @@
+I've first opened strings.
+
+I saw keyfile.txt string and went to it's XREF
+
+I saw usage of "keyfile.txt" and afterwards the usage of "Registered to: "
+
+I tried creating "keyfile.txt" in the exe's working directory with the content "Registered to: aBraM" (FAILED)
+
+Theres a CreateFileA call
+CreateFileA(
+filename="keyfile.txt",
+creation_disposition=OPEN_EXISTING
+)
+
+In order to debug my file creation I'll start using WinDbgX (I don't have a lot of time IRL so I returned to IDA)
+
+ReadFileEx call with nNumberOfBytesToRead=1F (31)
+if the file was successfully read concat it's content to "Registered to: "
+
+I was right from the start. funny bug. 
+Because I'm using a virtual machine my file extensions were hidden and I've created the file "keyfile.txt"
+without realising it was actually "keyfile.txt.txt" 
+
